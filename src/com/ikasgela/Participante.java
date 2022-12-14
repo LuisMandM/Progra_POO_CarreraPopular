@@ -14,7 +14,6 @@ public class Participante {
     //Asociacion
     private Marca marca;
 
-
     //Getters and Setters
 
     public String getNombre() {

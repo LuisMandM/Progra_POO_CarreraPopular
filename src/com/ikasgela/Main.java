@@ -10,35 +10,55 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         Carrera carrera = Carrera.getInstance();
-        String entrada;
+        //String entrada;
+        char eleccion;
 
         String nombre;
         int dorsal;
         double marca;
         do {
-            System.out.print("Ingrese el dorsal del participante: ");
-            entrada = br.readLine().toLowerCase();
-            if (!entrada.equals("fin")) {
-                try {
-                    dorsal = Integer.parseInt(entrada);
-                    System.out.print("Ingrese el nombre del participante: ");
-                    nombre = br.readLine();
-                    nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-                    System.out.print("Ingrese la marca del participante: ");
-                    marca = Double.parseDouble(br.readLine());
 
-                    carrera.registrarMarca(dorsal, nombre, marca);
+            System.out.print("--- Menú --------------\na) Ingresar marca\nb) Ver clasificación" +
+                    "\nc) Finalizar registro\nOpcion: ");
 
-                    System.out.println();
-                } catch (NumberFormatException e) {
-                    System.out.println("Error: tipo de dato erroneo\n");
-                }
+            eleccion = br.readLine().toLowerCase().charAt(0);
+            System.out.println();
 
-            } else {
+            switch (eleccion) {
 
-                carrera.verClasificacion();
+                case 'a':
+                    try {
+                        System.out.print("Ingrese el dorsal del participante: ");
+                        dorsal = Integer.parseInt(br.readLine());
+                        System.out.print("Ingrese el nombre del participante: ");
+                        nombre = br.readLine();
+                        nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
+                        System.out.print("Ingrese la marca del participante: ");
+                        marca = Double.parseDouble(br.readLine());
+
+                        carrera.registrarMarca(dorsal, nombre, marca);
+
+                        System.out.println();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: tipo de dato erroneo\n");
+                    }
+                    break;
+
+                case 'b':
+                    carrera.verClasificacion();
+                    break;
+
+                case 'c':
+                    System.out.println("Cerrando programa, exposicion final de registros insertados:\n");
+                    carrera.verClasificacion();
+                    break;
+
+                default:
+                    System.out.println("Opción Invalida\n");
+                    break;
+
             }
-
-        } while (!entrada.equals("fin"));
+        } while (eleccion != 'c');
     }
 }
+
